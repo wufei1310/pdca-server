@@ -22,6 +22,7 @@ class PDCAController {
         pdca.properties = params
         pdca.save();
 
+        log.info(params.toString())
         render new Resp(10002,pdca) as JSON;
 
     }
@@ -39,6 +40,8 @@ class PDCAController {
         PDCA pdca = PDCA.findByPdcaDate(pdcaDate)
 
         Resp resp = new Resp(10001,pdca);
+        //log.info(params)
+        log.info(params.toString())
 
         render resp as JSON
     }

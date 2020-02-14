@@ -22,6 +22,23 @@ appender('STDOUT', ConsoleAppender) {
     }
 }
 
+//if(Environment.current == Environment.DEVELOPMENT){
+if(Environment.current == Environment.PRODUCTION){
+    appender('ROLLING',RollingFileAppender){
+        encoder(PatternLayoutEncoder) {
+            pattern ='%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n' // Message
+        }
+        rollingPolicy(TimeBasedRollingPolicy) {
+            maxHistory = 30
+            FileNamePattern = "/app/logs/pdca-%d{yyyy-MM}.log"
+        }
+    }
+
+    logger("com.elusiyu.pdca",INFO,['ROLLING'],false)
+}
+
+
+
 def targetDir = BuildSettings.TARGET_DIR
 if (Environment.isDevelopmentMode() && targetDir != null) {
     appender("FULL_STACKTRACE", FileAppender) {
@@ -34,4 +51,4 @@ if (Environment.isDevelopmentMode() && targetDir != null) {
     }
     logger("StackTrace", ERROR, ['FULL_STACKTRACE'], false)
 }
-root(ERROR, ['STDOUT'])
+root(INFO, ['STDOUT'])

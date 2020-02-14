@@ -1,5 +1,7 @@
 package com.elusiyu.pdca
 
+import com.elusiyu.response.MsgResp
+import com.elusiyu.response.Resp
 import grails.converters.JSON
 import grails.gorm.transactions.Transactional
 import org.apache.commons.lang3.time.DateFormatUtils
@@ -15,14 +17,12 @@ class PDCAController {
     @Transactional
     def update(){
 
-        println "====="
-        println params
-
         def pdcaDate = params.pdcaDate?params.pdcaDate:"2020-02-12"
         PDCA pdca = PDCA.findByPdcaDate(pdcaDate)
         pdca.properties = params
         pdca.save();
-        render pdca as JSON
+
+        render new Resp(10002,pdca) as JSON;
 
     }
 
@@ -38,6 +38,8 @@ class PDCAController {
 
         PDCA pdca = PDCA.findByPdcaDate(pdcaDate)
 
-        render pdca as JSON
+        Resp resp = new Resp(10001,pdca);
+
+        render resp as JSON
     }
 }

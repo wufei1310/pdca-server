@@ -41,7 +41,7 @@ class PDCAController {
 
         Resp resp = new Resp(10001,pdca);
         //log.info(params)
-        log.info(params.toString())
+        log.info(resp.toString())
 
         render resp as JSON
     }

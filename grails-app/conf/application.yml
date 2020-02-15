@@ -150,6 +150,6 @@ environments:
         dataSource:
             username: "pdca_mysql"
             password: "Wufei7260189"
-            dbCreate: "validate"
+            dbCreate: "update"
             url: "jdbc:mysql://rm-uf6n4t6j1gdj7c9f5125010.mysql.rds.aliyuncs.com:3306/pdca?useUnicode=true&characterEncoding=utf-8&useSSL=false"
 

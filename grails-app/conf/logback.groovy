@@ -36,6 +36,17 @@ if(Environment.current == Environment.PRODUCTION){
 
     logger("com.elusiyu.pdca",INFO,['ROLLING'],false)
 
+
+    appender("FULL_STACKTRACE", FileAppender) {
+        file = "/app/logs/stacktrace.log"
+        append = true
+        encoder(PatternLayoutEncoder) {
+            charset = StandardCharsets.UTF_8
+            pattern = "%level %logger - %msg%n"
+        }
+    }
+    logger("StackTrace", ERROR, ['FULL_STACKTRACE'], false)
+
 }
 
 

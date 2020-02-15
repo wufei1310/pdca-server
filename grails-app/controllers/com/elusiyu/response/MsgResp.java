@@ -42,7 +42,8 @@ public class MsgResp {
 
 
         //40000~50000 非法的请求
-        msgMap.put(40000,"PDCA-非法请求");
+        msgMap.put(40000,"非法请求");
+        msgMap.put(40001,"会话已失效，非法请求");
 
     }
 

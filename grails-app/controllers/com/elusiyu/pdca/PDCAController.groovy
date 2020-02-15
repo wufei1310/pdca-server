@@ -8,7 +8,7 @@ import org.apache.commons.lang3.time.DateFormatUtils
 import org.apache.commons.lang3.time.DateUtils
 
 
-class PDCAController {
+class PDCAController extends BaseController{
 
     def index() {
         render "ok"
@@ -35,9 +35,19 @@ class PDCAController {
     @Transactional
     def show(){
 
-        def pdcaDate = params.pdcaDate?params.pdcaDate:DateFormatUtils.format(new Date(),'yyyy-MM-dd')
 
-        PDCA pdca = PDCA.findByPdcaDate(pdcaDate)
+
+        def pdcaDate = params.pdcaDate?params.pdcaDate:DateFormatUtils.format(new Date(),'yyyy-MM-dd')
+        log.info("show方法中的会话是:"+session.getId())
+        PDCA pdca = PDCA.findByU_idAndPdcaDate(session.session_user.id,pdcaDate)
+
+
+
+        if(!pdca){
+            pdca = new PDCA();
+            pdca.u_id = session.session_user.id
+            pdca.save(flash:true)
+        }
 
         Resp resp = new Resp(10001,pdca);
         //log.info(params)

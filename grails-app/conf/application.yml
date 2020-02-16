@@ -1,9 +1,17 @@
 ---
+beans:
+    securityInterceptor:
+        order: 20
+    corsInterceptor:
+        order: 10
 server:
     port: 8001
 grails:
     cors:
         enabled: true
+        allowedOrigins:
+            - http://localhost:40000
+            - http://pdca.vip:8002
     profile: web
     codegen:
         defaultPackage: pdca.server

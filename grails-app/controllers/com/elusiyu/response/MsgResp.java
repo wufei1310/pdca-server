@@ -34,6 +34,7 @@ public class MsgResp {
         msgMap.put(10003,"登录成功");
 
         msgMap.put(10004,"注册成功");
+        msgMap.put(10005,"退出成功");
 
         //50000~90000 正常的业务请求-失败
         msgMap.put(50000,"登录失败");

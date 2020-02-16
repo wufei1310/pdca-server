@@ -1,5 +1,6 @@
 package pdca.server
 
+import com.elusiyu.pdca.User
 import org.springframework.beans.BeansException
 import org.springframework.context.ApplicationContext
 import org.springframework.context.ApplicationContextAware
@@ -21,15 +22,38 @@ class SessionTracker implements HttpSessionListener, ApplicationContextAware {
     }
 
     void sessionCreated(HttpSessionEvent httpSessionEvent) {
+
+        println("一个新会话产生了:" + httpSessionEvent.session.id)
         sessions.putAt(httpSessionEvent.session.id, httpSessionEvent.session)
     }
 
     void sessionDestroyed(HttpSessionEvent httpSessionEvent) {
+        println("一个会话消失了:" + httpSessionEvent.session.id)
         sessions.remove(httpSessionEvent.session.id)
     }
 
     HttpSession getSessionById(String id) {
         sessions.get(id)
+    }
+
+    public static HttpSession getSeesion(HttpSession session){
+        return sessions.get(session.id)
+    }
+
+    public static  putSession(HttpSession session){
+        sessions.putAt(session.id,session)
+    }
+
+    public static ConcurrentMap<String, HttpSession> getSessions(){
+        return sessions
+    }
+
+    public static setSeesionUser(HttpSession session, User user){
+        session.session_user = user
+    }
+
+    public static User getSeesionUser(HttpSession session){
+        return session.session_user
     }
 
 

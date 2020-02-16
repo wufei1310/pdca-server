@@ -9,17 +9,13 @@ class Demo2Controller {
 
 
 
+    def isok(){
+        render "this is ok"
+    }
 
     @Transactional
     def initRecords(){
-        Date startPdcaDate = new Date();
-        for(int i = -100 ;i < 300;i++){
-            PDCA initPdca = new PDCA();
-            initPdca.pdcaDate = DateFormatUtils.format(DateUtils.addDays(startPdcaDate,i),'yyyy-MM-dd')
-            initPdca.u_id = 1
-            initPdca.save()
-            println("======= " + initPdca)
-        }
+
     }
 
 

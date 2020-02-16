@@ -34,7 +34,8 @@ if(Environment.current == Environment.PRODUCTION){
         }
     }
 
-    logger("com.elusiyu.pdca",INFO,['ROLLING'],false)
+    logger("pdca.server",INFO,['ROLLING'],false)
+    logger("com.elusiyu",INFO,['ROLLING'],false)
 
 
     appender("FULL_STACKTRACE", FileAppender) {

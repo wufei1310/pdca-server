@@ -7,7 +7,11 @@ import grails.converters.JSON
 import grails.gorm.transactions.Transactional
 import pdca.server.SessionTracker
 
+import java.lang.reflect.InvocationTargetException
+
 class UserController extends BaseController{
+
+    def sessionTracker;
 
     def index() { }
 
@@ -18,6 +22,7 @@ class UserController extends BaseController{
     def invalidUserReq(){
         render new Resp(40001) as JSON;
     }
+
 
 
     @Transactional
@@ -44,15 +49,19 @@ class UserController extends BaseController{
     }
 
     def doLogout(){
+        //println sessionTracker
+        try{
+            sessionTracker.getSeesion(request).invalidate();
+        }catch(Exception e){
+            println e.stackTrace
+        }
 
-        SessionTracker.getSeesion(session).invalidate();
         render new Resp(10005) as JSON
 
     }
 
     def doLogin(){
 
-        //User user = User.findByEmailAndPasswordAndState(params.email,params.password, UserState.ACTIVATE)
         User user = User.findByEmail(params.email)
         Resp resp = new Resp();
         if(user){
@@ -74,8 +83,8 @@ class UserController extends BaseController{
 
             else if(user.password == params.password.encodeAsBase64().encodeAsBase64()){
                 user.password = "" //将密码置空，不回传到前端
-                SessionTracker.setSeesionUser(session,user)
-                log.info("当前请求的用户是:"+SessionTracker.getSeesionUser(session).id)
+                sessionTracker.setLoginSeesionUser(request,user)
+                log.info("当前请求的用户是:"+sessionTracker.getSeesion(request).id)
                 resp.setCode(10003)
                 resp.getExtrainfo().put(Tokens.MEMBER_TOKEN,session.getId());
 

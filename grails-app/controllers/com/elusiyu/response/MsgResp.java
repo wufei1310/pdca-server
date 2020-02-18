@@ -36,6 +36,8 @@ public class MsgResp {
         msgMap.put(10004,"注册成功");
         msgMap.put(10005,"退出成功");
 
+        msgMap.put(10006,"第三方登录成功");
+
         //50000~90000 正常的业务请求-失败
         msgMap.put(50000,"登录失败-用户名不存在");
         msgMap.put(50001,"邮箱已经存在");
@@ -49,6 +51,7 @@ public class MsgResp {
         //40000~50000 非法的请求
         msgMap.put(40000,"非法请求");
         msgMap.put(40001,"会话已失效，非法请求");
+        msgMap.put(40002,"Token不合法");
 
     }
 

@@ -1,11 +1,14 @@
 package pdca.server
 
 import com.elusiyu.pdca.User
+import com.elusiyu.pdca.enums.Tokens
 import org.springframework.beans.BeansException
 import org.springframework.context.ApplicationContext
 import org.springframework.context.ApplicationContextAware
+import org.springframework.http.HttpRequest
 import org.springframework.web.context.WebApplicationContext
 
+import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpSession
 import javax.servlet.http.HttpSessionEvent
 import javax.servlet.http.HttpSessionListener
@@ -33,26 +36,38 @@ class SessionTracker implements HttpSessionListener, ApplicationContextAware {
     }
 
     HttpSession getSessionById(String id) {
-        sessions.get(id)
+        return sessions.get(id)
+
     }
 
-    public static HttpSession getSeesion(HttpSession session){
-        return sessions.get(session.id)
+    public HttpSession getSeesion(HttpServletRequest request){
+
+        String token = request.getHeader(Tokens.MEMBER_TOKEN.toString())
+        if(!token){//如果Token没有值则表明不没有登录获得
+            token = request.getSession().id;
+            putSession(request);
+
+        }
+        return getSessionById(token);
     }
 
-    public static  putSession(HttpSession session){
-        sessions.putAt(session.id,session)
+    public putSession(HttpServletRequest request){
+        sessions.putAt(request.getSession().id,request.getSession())
     }
 
-    public static ConcurrentMap<String, HttpSession> getSessions(){
+    public ConcurrentMap<String, HttpSession> getSessions(){
         return sessions
     }
 
-    public static setSeesionUser(HttpSession session, User user){
-        session.session_user = user
+    public setLoginSeesionUser(HttpServletRequest request, User user){
+        request.getSession(true).session_user = user
     }
 
-    public static User getSeesionUser(HttpSession session){
+    public User getSeesionUser(HttpServletRequest request){
+        return getSeesion(request).session_user
+    }
+
+    public User getSeesionUser(HttpSession session){
         return session.session_user
     }
 

@@ -5,6 +5,7 @@ import com.elusiyu.response.Resp
 import grails.converters.JSON
 import grails.gorm.transactions.Transactional
 import org.apache.commons.lang3.time.DateFormatUtils
+import org.apache.commons.lang3.time.DateUtils
 
 
 class PDCAController extends BaseController{
@@ -59,5 +60,30 @@ class PDCAController extends BaseController{
 
         Resp resp = new Resp(10001,pdca);
         render resp as JSON
+    }
+
+
+    def findMyRecords(){
+        User user = sessionTracker.getSeesionUser(request);
+        Date pdcaDate = DateUtils.parseDate(params.pdcaDate,'yyy-MM-dd')
+        Date minDate = DateUtils.addDays(pdcaDate,-30)
+        Date maxDate = DateUtils.addDays(pdcaDate,30)
+
+
+        String minDateStr = DateFormatUtils.format(minDate,'yyyy-MM-dd')
+        String maxDateStr = DateFormatUtils.format(maxDate,'yyyy-MM-dd')
+
+        List<PDCA> pdcaList = PDCA.findAllByU_idAndPdcaDateBetween(user.id,minDateStr,maxDateStr);
+        List<String> pdcaDateList = new ArrayList<String>();
+        pdcaList.each {pdca ->
+            if(pdca.p){
+                pdcaDateList.add(pdca.pdcaDate)
+            }
+        }
+
+        Resp resp = new Resp(10007,pdcaDateList);
+        render resp as JSON
+
+
     }
 }

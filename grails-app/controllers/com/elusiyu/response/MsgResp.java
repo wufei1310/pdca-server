@@ -38,6 +38,9 @@ public class MsgResp {
 
         msgMap.put(10006,"第三方登录成功");
 
+
+        msgMap.put(10007,"获取当月PDCA记录日期成功");
+
         //50000~90000 正常的业务请求-失败
         msgMap.put(50000,"登录失败-用户名不存在");
         msgMap.put(50001,"邮箱已经存在");

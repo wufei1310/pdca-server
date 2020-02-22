@@ -25,7 +25,7 @@ class UserController extends BaseController{
 
 
 
-    @Transactional
+        @Transactional
     def doRegister(){
         User user = User.findByEmail(params.email)
         Resp resp = new Resp();
@@ -86,7 +86,7 @@ class UserController extends BaseController{
                 sessionTracker.setLoginSeesionUser(request,user)
                 log.info("当前请求的用户是:"+sessionTracker.getSeesion(request).id)
                 resp.setCode(10003)
-                resp.getExtrainfo().put(Tokens.MEMBER_TOKEN,session.getId());
+                resp.getExtrainfo().put(Tokens.PDCA_TOKEN,session.getId());
 
 
 

@@ -41,12 +41,18 @@ class SessionTracker implements HttpSessionListener, ApplicationContextAware {
     }
 
     public HttpSession getSeesion(HttpServletRequest request){
+        String token = request.getHeader("PDCA-TOKEN")
 
-        String token = request.getHeader(Tokens.MEMBER_TOKEN.toString())
+
         if(!token){//如果Token没有值则表明不没有登录获得
             token = request.getSession().id;
             putSession(request);
-
+        }else{
+            HttpSession session = getSessionById(token)
+            if(!session){//如果有token但还是找不到会话，说明服务端的会话已经消失，客户端有遗留的token，此处需要重置
+                token = request.getSession().id;
+                putSession(request);
+            }
         }
         return getSessionById(token);
     }

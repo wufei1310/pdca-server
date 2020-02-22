@@ -26,16 +26,21 @@ class SecurityInterceptor {
 
     boolean before() {
 
-
-
-        String token = request.getHeader(Tokens.MEMBER_TOKEN.toString())
+        String token = request.getHeader("PDCA-TOKEN")
+        //log.info("当前请求Header获得的的Token是【"+token+"】")
         Cookie[] cookies = request.getCookies(); //vue前端如果是直接刷新浏览器，request的Header中将没有PDCA-Token，这时候就要从cookie中去取
-        cookies.each {it->
-            if(it.name == "PDCA-Token"){
-                token = it.value;
+
+
+        if(token){
+            cookies.each {it->
+                if(it.name=="PDCA-TOKEN"){
+                    token = it.value;
+                    //log.info("Header中没有，从cookie中获的Token是【"+token+"】")
+                }
             }
         }
-//        log.info("当前请求的Token是【"+token+"】")
+
+
 
         if(token){
             HttpSession session = sessionTracker.getSessionById(token);

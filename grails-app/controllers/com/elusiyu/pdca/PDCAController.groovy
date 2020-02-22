@@ -46,7 +46,7 @@ class PDCAController extends BaseController{
 
 
         def pdcaDate = params.pdcaDate?params.pdcaDate:DateFormatUtils.format(new Date(),'yyyy-MM-dd')
-        log.info("show方法中的会话是:"+session.getId())
+//        log.info("show方法中的会话是:"+session.getId())
         User user = sessionTracker.getSeesionUser(request);
         PDCA pdca = PDCA.findByU_idAndPdcaDate(user.id,pdcaDate)
 

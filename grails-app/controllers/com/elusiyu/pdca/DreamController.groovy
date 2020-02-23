@@ -19,15 +19,19 @@ class DreamController {
 
 
         Dream dream = new Dream();
-        dream.u_id = user.id
-        dream.no = 1
         dream.properties = params;
+        dream.u_id = user.id
+        dream.dream_no = 1
 
-        List lastDream = Dream.list(max: 1, offset: 0, sort: "no", order: "desc")
+
+
+        List lastDream = Dream.findAllByU_id(user.id,[max: 1, offset: 0, sort: "dream_no", order: "desc"])
 
         if(lastDream.size()>0){
-            dream.no = lastDream.get(0).no + 1
+            dream.dream_no = lastDream.get(0).dream_no + 1
         }
+
+
 
 
         dream.save(flash:true);

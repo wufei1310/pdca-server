@@ -93,9 +93,9 @@ class AuthLoginController {
 
         Resp resp = new Resp();
         resp.setCode(10006)
-        resp.getExtrainfo().put(Tokens.MEMBER_TOKEN,session.getId());
+        resp.getExtrainfo().put(Tokens.PDCA_TOKEN,session.getId());
 
-        //response.setHeader(Tokens.MEMBER_TOKEN.toString(),session.getId())
+        //response.setHeader(Tokens.PDCA_TOKEN.toString(),session.getId())
         if(Environment.current==Environment.DEVELOPMENT){
             response.sendRedirect(grailsApplication.config.getProperty('myConfig.PDCARedirectURL_DEV')+"?t="+session.getId())
         }

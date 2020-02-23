@@ -16,6 +16,34 @@ class PDCAController extends BaseController{
         render "ok"
     }
 
+    //追加PLAN到明天
+    @Transactional
+    def addToTomorrow(){
+        Date tomorrow = DateUtils.addDays(new Date(),1);
+        String now_str = DateFormatUtils.format(new Date(),'MM-dd hh:mm:ss')
+        String tomorrow_str = DateFormatUtils.format(tomorrow,'yyyy-MM-dd')
+
+        User user = sessionTracker.getSeesionUser(request);
+        PDCA pdca = PDCA.findByU_idAndPdcaDate(user.id,tomorrow_str)
+        if(!pdca) {
+            pdca = new PDCA();
+            pdca.u_id = user.id
+            pdca.pdcaDate = pdcaDate
+        }
+
+        if(pdca.p){
+            pdca.p = pdca.p + "\r\n" + "【"+ now_str +"】"  + params.p
+        }else{
+            pdca.p = "【"+ now_str +"】"  + params.p
+        }
+
+
+
+        pdca.save(flash:true);
+        render new Resp(10010,pdca) as JSON;
+
+    }
+
     @Transactional
     def update(){
 

@@ -43,6 +43,7 @@ public class MsgResp {
 
         msgMap.put(10008,"新增一个目标成功");
         msgMap.put(10009,"获取我的目标列表成功");
+        msgMap.put(10010,"追加一条到明天PLAN成功");
 
         //50000~90000 正常的业务请求-失败
         msgMap.put(50000,"登录失败-用户名不存在");

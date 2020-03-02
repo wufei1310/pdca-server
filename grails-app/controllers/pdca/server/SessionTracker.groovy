@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSessionListener
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.ConcurrentMap
 
-class SessionTracker implements HttpSessionListener, ApplicationContextAware {
+class SessionTracker implements HttpSessionListener {
 
     private static final ConcurrentMap<String, HttpSession> sessions = new ConcurrentHashMap<String, HttpSession>();
 
@@ -40,7 +40,7 @@ class SessionTracker implements HttpSessionListener, ApplicationContextAware {
 
     }
 
-    public HttpSession getSeesion(HttpServletRequest request){
+    public HttpSession getSession(HttpServletRequest request){
         String token = request.getHeader("PDCA-TOKEN")
 
 
@@ -65,15 +65,15 @@ class SessionTracker implements HttpSessionListener, ApplicationContextAware {
         return sessions
     }
 
-    public setLoginSeesionUser(HttpServletRequest request, User user){
+    public setLoginSessionUser(HttpServletRequest request, User user){
         request.getSession(true).session_user = user
     }
 
-    public User getSeesionUser(HttpServletRequest request){
-        return getSeesion(request).session_user
+    public User getSessionUser(HttpServletRequest request){
+        return getSession(request).session_user
     }
 
-    public User getSeesionUser(HttpSession session){
+    public User getSessionUser(HttpSession session){
         return session.session_user
     }
 

@@ -23,7 +23,7 @@ class PDCAController extends BaseController{
         String now_str = DateFormatUtils.format(new Date(),'MM-dd hh:mm:ss')
         String tomorrow_str = DateFormatUtils.format(tomorrow,'yyyy-MM-dd')
 
-        User user = sessionTracker.getSeesionUser(request);
+        User user = sessionTracker.getSessionUser(request);
         PDCA pdca = PDCA.findByU_idAndPdcaDate(user.id,tomorrow_str)
         if(!pdca) {
             pdca = new PDCA();
@@ -49,7 +49,7 @@ class PDCAController extends BaseController{
 
         def pdcaDate = params.pdcaDate?params.pdcaDate:"2020-02-12"
 
-        User user = sessionTracker.getSeesionUser(request);
+        User user = sessionTracker.getSessionUser(request);
         PDCA pdca = PDCA.findByU_idAndPdcaDate(user.id,pdcaDate)
         if(!pdca) {
             pdca = new PDCA();
@@ -75,7 +75,7 @@ class PDCAController extends BaseController{
 
         def pdcaDate = params.pdcaDate?params.pdcaDate:DateFormatUtils.format(new Date(),'yyyy-MM-dd')
 //        log.info("show方法中的会话是:"+session.getId())
-        User user = sessionTracker.getSeesionUser(request);
+        User user = sessionTracker.getSessionUser(request);
         PDCA pdca = PDCA.findByU_idAndPdcaDate(user.id,pdcaDate)
 
 
@@ -92,7 +92,7 @@ class PDCAController extends BaseController{
 
 
     def findMyRecords(){
-        User user = sessionTracker.getSeesionUser(request);
+        User user = sessionTracker.getSessionUser(request);
         Date pdcaDate = DateUtils.parseDate(params.pdcaDate,'yyy-MM-dd')
         Date minDate = DateUtils.addDays(pdcaDate,-30)
         Date maxDate = DateUtils.addDays(pdcaDate,30)

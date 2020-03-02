@@ -12,7 +12,7 @@ class DreamController {
 
     @Transactional
     def save(){
-        User user = sessionTracker.getSeesionUser(request);
+        User user = sessionTracker.getSessionUser(request);
 
 
 
@@ -40,7 +40,7 @@ class DreamController {
     }
 
     def show(){
-        User user = sessionTracker.getSeesionUser(request);
+        User user = sessionTracker.getSessionUser(request);
 
         List dreamList = Dream.findAllByU_id(user.id)
 

@@ -51,7 +51,7 @@ class UserController extends BaseController{
     def doLogout(){
         //println sessionTracker
         try{
-            sessionTracker.getSeesion(request).invalidate();
+            sessionTracker.getSession(request).invalidate();
         }catch(Exception e){
             println e.stackTrace
         }
@@ -83,8 +83,8 @@ class UserController extends BaseController{
 
             else if(user.password == params.password.encodeAsBase64().encodeAsBase64()){
                 user.password = "" //将密码置空，不回传到前端
-                sessionTracker.setLoginSeesionUser(request,user)
-                log.info("当前请求的用户是:"+sessionTracker.getSeesion(request).id)
+                sessionTracker.setLoginSessionUser(request,user)
+                log.info("当前请求的用户是:"+sessionTracker.getSession(request).id)
                 resp.setCode(10003)
                 resp.getExtrainfo().put(Tokens.PDCA_TOKEN,session.getId());
 

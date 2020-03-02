@@ -47,7 +47,7 @@ class SecurityInterceptor {
 
             if(session){
 //                log.info("根据当前Token【" + token + "】获得的会话是:【"+session.getId()+"】")
-                User user = sessionTracker.getSeesionUser(session)
+                User user = sessionTracker.getSessionUser(session)
 
 
                 if(user){

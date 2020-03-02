@@ -52,7 +52,7 @@ class AuthLoginController {
 
 
         HttpSession session = sessionTracker.getSessionById(params.token);
-        User user = sessionTracker.getSeesionUser(session);
+        User user = sessionTracker.getSessionUser(session);
 
         Resp resp = new Resp();
         if(user){
@@ -87,8 +87,8 @@ class AuthLoginController {
         }
 
         if(user.state == UserState.ACTIVATE){
-            sessionTracker.setLoginSeesionUser(request,user)
-            log.info("第三方登录用户是:"+sessionTracker.getSeesionUser(request).id)
+            sessionTracker.setLoginSessionUser(request,user)
+            log.info("第三方登录用户是:"+sessionTracker.getSessionUser(request).id)
         }
 
         Resp resp = new Resp();

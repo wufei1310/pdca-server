@@ -1,9 +1,9 @@
 ---
 myConfig:
     PDCARedirectURL_DEV: http://localhost:40000/#/threeThAuth
-    PDCARedirectURL_PRO: http://grails.online/#/threeThAuth
+    PDCARedirectURL_PRO: http://pdca.vip/#/threeThAuth
     PDCASERVERRedirectURL_DEV: http://dev.pdca.vip/api/authLogin/authLoginSuccess
-    PDCASERVERRedirectURL_PRO: http://grails.online/api/authLogin/authLoginSuccess
+    PDCASERVERRedirectURL_PRO: http://pdca.vip/api/authLogin/authLoginSuccess
 beans:
     securityInterceptor:
         order: 20
@@ -19,6 +19,7 @@ grails:
             - http://pdca.vip:8002
             - http://dev.pdca.vip:40000
             - http://grails.online
+            - http://pdca.vip
     profile: web
     codegen:
         defaultPackage: pdca.server

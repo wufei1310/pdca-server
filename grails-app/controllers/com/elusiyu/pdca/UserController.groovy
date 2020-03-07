@@ -62,6 +62,7 @@ class UserController extends BaseController{
 
     def doLogin(){
 
+
         User user = User.findByEmail(params.email)
         Resp resp = new Resp();
         if(user){
